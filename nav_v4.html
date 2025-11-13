@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Campus Navigator</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for professional appearance */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light gray background */
+        }
+        .container-bg {
+            background-color: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .venue-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .venue-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Main Container -->
+    <div class="container-bg w-full max-w-4xl mx-auto p-6 md:p-10 rounded-xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold text-blue-800 mb-2">
+                <span class="text-blue-500">🎓</span> Campus Venue Finder
+            </h1>
+            <p class="text-gray-500">Find any location on campus quickly and easily.</p>
+        </header>
+
+        <!-- Search Bar and Input -->
+        <div class="flex flex-col sm:flex-row gap-3 mb-8">
+            <input type="text" id="searchBox" placeholder="Enter venue name (e.g., Canteen, Library, Physics Lab)"
+                   class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
+            <button onclick="findLocation()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-150 ease-in-out w-full sm:w-auto">
+                Search
+            </button>
+        </div>
+
+        <!-- Result Container -->
+        <div id="result" class="min-h-[150px] flex items-center justify-center p-4">
+            <p id="initial-message" class="text-gray-500 italic">Start by searching for a location above, or scroll to see a list of popular venues.</p>
+            <div id="venue-details-container" class="hidden w-full">
+                <!-- Venue details will be injected here -->
+            </div>
+            <div id="error-message" class="hidden text-red-500 font-medium">
+                <!-- Error messages will be injected here -->
+            </div>
+        </div>
+
+        <!-- Venue List / Explore Section -->
+        <div class="mt-8 pt-6 border-t border-gray-100">
+            <!-- College Blueprint Image -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <h3 class="text-xl font-bold text-gray-600 mb-2">Campus Overview Map (Blueprint)</h3>
+                <img src="images/blueprint.jpg" alt="Campus Blueprint or Map"
+                     onerror="this.onerror=null;this.src='https://placehold.co/800x400/eeeeee/333333?text=Campus+Map+Unavailable';"
+                     class="w-full h-auto max-h-96 rounded-lg shadow-md border border-gray-300 object-contain">
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">Popular Campus Venues</h2>
+            <div id="venue-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic list of popular venues will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variable to store loaded venue data
+        let campusVenues = [];
+
+        // --- 1. IMAGE PATH GENERATION ---
+        /**
+         * Generates the image URL based on the venue ID.
+         * Assumes images are in an 'images' folder and named [ID].jpg (e.g., images/V001.jpg).
+         */
+        function createImageUrl(id) {
+            // Using .jpg extension based on previous file context
+            return `images/${id}.jpg`; 
+        }
+
+        // --- 2. SEARCH & DISPLAY LOGIC ---
+
+        function findLocation() {
+            if (campusVenues.length === 0) {
+                // Should not happen if initApp works, but good for safety
+                document.getElementById("error-message").innerHTML = "Data is still loading or failed to load. Please wait.";
+                document.getElementById("error-message").classList.remove('hidden');
+                return;
+            }
+
+            const searchTerm = document.getElementById("searchBox").value.trim().toLowerCase();
+            const detailsContainer = document.getElementById("venue-details-container");
+            const initialMessage = document.getElementById("initial-message");
+            const errorMessage = document.getElementById("error-message");
+
+            initialMessage.classList.add('hidden');
+            detailsContainer.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            detailsContainer.innerHTML = ''; // Clear previous results
+
+            if (searchTerm.length === 0) {
+                errorMessage.innerHTML = "Please enter a location name to search.";
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            // Search Logic: Use a "fuzzy" match by checking name, keywords, and ID
+            const foundVenue = campusVenues.find(venue =>
+                venue.name.toLowerCase().includes(searchTerm) ||
+                venue.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm)) ||
+                venue.id.toLowerCase() === searchTerm
+            );
+
+            if (foundVenue) {
+                displayVenueDetails(foundVenue, detailsContainer);
+            } else {
+                errorMessage.innerHTML = `❌ Sorry, we couldn't find a venue matching "${searchTerm}". Try using broader terms like 'Library' or 'Canteen'.`;
+                errorMessage.classList.remove('hidden');
+            }
+        }
+
+        function displayVenueDetails(venue, container) {
+            const imageUrl = createImageUrl(venue.id);
+
+            // Fallback image source uses a simple placeholder if the local image fails to load
+            const fallbackImageUrl = `https://placehold.co/400x225/e0e0e0/555555?text=Image+for+${venue.id}`;
+
+            const html = `
+                <div class="venue-card w-full bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg p-0 md:flex transition-all">
+                    <!-- Image Area -->
+                    <div class="md:w-1/3 bg-gray-50 flex-shrink-0">
+                        <img src="${imageUrl}" alt="Image of ${venue.name} (ID: ${venue.id})"
+                             onerror="this.onerror=null;this.src='${fallbackImageUrl}';"
+                             class="w-full h-48 md:h-full object-cover">
+                    </div>
+
+                    <!-- Details Area -->
+                    <div class="md:w-2/3 p-6 flex flex-col justify-center">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-3xl font-bold text-gray-800">${venue.icon} ${venue.name}</h3>
+                            <span class="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">${venue.category}</span>
+                        </div>
+                        <p class="text-lg text-gray-600 mb-4">${venue.description}</p>
+                        
+                        <div class="grid grid-cols-2 gap-4 text-sm font-medium">
+                            <div class="flex items-center">
+                                <span class="text-gray-500 mr-2">Building:</span>
+                                <span class="text-gray-800 font-semibold">${venue.block}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-gray-500 mr-2">Level:</span>
+                                <span class="text-gray-800 font-semibold">${venue.floor}</span>
+                            </div>
+                            <div class="flex items-center col-span-2">
+                                <span class="text-gray-500 mr-2">Venue ID:</span>
+                                <span class="text-blue-500">${venue.id}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            container.classList.remove('hidden');
+            
+            // Scroll to the result area
+            document.getElementById('searchBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+
+        // --- 3. INITIALIZATION AND DATA LOADING ---
+        
+        async function initApp() {
+            try {
+                // Fetch data from the separate JSON file
+                const response = await fetch('venues.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // Store the data globally
+                campusVenues = await response.json(); 
+                
+                // Once data is loaded, populate the popular venue list
+                populateVenueList();
+
+            } catch (error) {
+                console.error("Could not load venue data:", error);
+                document.getElementById("error-message").innerHTML = `Error loading venue data: ${error.message}. Please ensure 'venues.json' is in the root directory.`;
+                document.getElementById("error-message").classList.remove('hidden');
+            }
+        }
+        
+        function populateVenueList() {
+            const venueListContainer = document.getElementById("venue-list");
+            venueListContainer.innerHTML = ''; // Clear container
+
+            // Display a selection of venues in a card layout (first 6)
+            campusVenues.slice(0, 6).forEach(venue => {
+                const imageUrl = createImageUrl(venue.id);
+                // Use a standard fallback for the initial list if the local image fails to load
+                const fallbackImageUrl = "https://placehold.co/400x225/e0e0e0/555555?text=View+Details";
+
+                const cardHtml = `
+                    <div class="venue-card bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg cursor-pointer transition"
+                         onclick="document.getElementById('searchBox').value='${venue.name}'; findLocation();">
+                        <img src="${imageUrl}" alt="${venue.name}" 
+                             onerror="this.onerror=null;this.src='${fallbackImageUrl}';"
+                             class="w-full h-32 object-cover">
+                        <div class="p-4">
+                            <h4 class="text-xl font-semibold text-gray-800 mb-1">${venue.icon} ${venue.name}</h4>
+                            <p class="text-sm text-gray-500">${venue.block}, ${venue.floor}</p>
+                            <span class="text-xs font-medium text-blue-600">${venue.id}</span>
+                        </div>
+                    </div>
+                `;
+                venueListContainer.innerHTML += cardHtml;
+            });
+            document.getElementById("initial-message").classList.add('hidden');
+        }
+
+        // Run initialization on load
+        window.onload = initApp;
+    </script>
+
+</body>
+</html>

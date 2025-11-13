@@ -1,0 +1,233 @@
+
+    [
+{
+"id": "V001",
+"name": "Central Library",
+"block": "CET Main Block",
+"floor": "Ground Floor",
+"description": "The main resource center for academic materials, research, and quiet study.",
+"category": "Academic",
+"keywords": ["books", "study", "reading", "research", "main"],
+"icon": "📚"
+},
+{
+"id": "V002",
+"name": "Student Canteen",
+"block": "Annexe Building",
+"floor": "Ground Floor",
+"description": "Serves fresh meals, snacks, and beverages. Located near the Bus Stop.",
+"category": "Food",
+"keywords": ["food", "cafe", "mess", "lunch", "dinner", "break"],
+"icon": "🍴"
+},
+{
+"id": "V003",
+"name": "Physics Lab",
+"block": "Engineering Block 3",
+"floor": "First Floor",
+"description": "Equipped for general physics experiments and practicals. Find the lab on the first floor.",
+"category": "Laboratory",
+"keywords": ["experiment", "science", "phys"],
+"icon": "⚗️"
+},
+{
+"id": "V004",
+"name": "Chemistry Lab",
+"block": "Engineering Block 3",
+"floor": "Ground Floor",
+"description": "Facilities for inorganic and organic chemistry practical sessions.",
+"category": "Laboratory",
+"keywords": ["experiment", "chemical", "chem"],
+"icon": "🧪"
+},
+{
+"id": "V005",
+"name": "Communication Lab",
+"block": "Engineering Block 3",
+"floor": "Second Floor",
+"description": "Dedicated space for soft skills and professional communication practice.",
+"category": "Academic",
+"keywords": ["soft skills", "english", "speak"],
+"icon": "📡"
+},
+{
+"id": "V006",
+"name": "Computer Lab",
+"block": "Engineering Block 3",
+"floor": "Second Floor",
+"description": "Open access computers for student use, programming, and project work.",
+"category": "Academic",
+"keywords": ["pc", "programming", "it"],
+"icon": "💻"
+},
+{
+"id": "V007",
+"name": "MBA Department",
+"block": "Engineering Block 3",
+"floor": "Third Floor",
+"description": "Offices and classrooms for the Master of Business Administration program.",
+"category": "Department",
+"keywords": ["business", "management", "mba"],
+"icon": "📊"
+},
+{
+"id": "V008",
+"name": "BEEE Lab",
+"block": "Hill block 1",
+"floor": "Ground Floor",
+"description": "Basic Electrical and Electronics Engineering laboratory.",
+"category": "Laboratory",
+"keywords": ["electrical", "electronics", "circuit"],
+"icon": "⚡"
+},
+{
+"id": "V009",
+"name": "Principal Office",
+"block": "CET Main Block",
+"floor": "Ground Floor",
+"description": "The central office for the college head, managing academic and administrative decisions.",
+"category": "Administration",
+"keywords": ["principal", "head", "director", "management", "main"],
+"icon": "👨‍💼"
+},
+{
+"id": "V010",
+"name": "Administration Office",
+"block": "Arts & Science Block 1",
+"floor": "Ground Floor",
+"description": "Handles student admissions, records, fee payments, and general institutional inquiries.",
+"category": "Administration",
+"keywords": ["admissions", "records", "fees", "documents", "office"],
+"icon": "🏢"
+},
+{
+"id": "V011",
+"name": "S&H Lab",
+"block": "Engineering Block 3",
+"floor": "Third Floor",
+"description": "Dedicated laboratory for Science and Humanities practical sessions and foundation courses.",
+"category": "Laboratory",
+"keywords": ["science", "humanities", "physics", "chemistry", "basic", "third floor"],
+"icon": "💡"
+},
+{
+"id": "V012",
+"name": "IGC Office",
+"block": "Engineering Block 3",
+"floor": "Ground Floor",
+"description": "The International Graduate Center office, managing foreign collaborations and higher study guidance.",
+"category": "Administration",
+"keywords": ["international", "global", "guidance", "counseling", "foreign"],
+"icon": "🌍"
+},
+{
+"id": "V013",
+"name": "IAS Academy",
+"block": "Standalone Facility",
+"floor": "Ground Floor",
+"description": "Training center offering coaching and resources for students preparing for civil service examinations.",
+"category": "Academic",
+"keywords": ["upsc", "ias", "academy", "training", "civil service"],
+"icon": "🏛️"
+},
+{
+"id": "V014",
+"name": "Boys Hostel",
+"block": "Hostel Complex",
+"floor": "Multiple Floors",
+"description": "On-campus residential facility for male students, located near the medical center and dining."
+},
+{
+"id": "V015",
+"name": "Football Field (Athletic Track)",
+"block": "Sports Ground",
+"floor": "Outdoor",
+"description": "The main playing area for football, surrounded by an athletic running track.",
+"category": "Sports",
+"keywords": ["soccer", "track", "running", "athletics", "outdoor", "stadium"],
+"icon": "⚽"
+},
+{
+"id": "V016",
+"name": "Cricket Turf",
+"block": "Sports Ground",
+"floor": "Outdoor",
+"description": "Central ground featuring a professional turf wicket for cricket matches and practice.",
+"category": "Sports",
+"keywords": ["cricket", "pitch", "wicket", "outdoor", "turf"],
+"icon": "🏏"
+},
+{
+"id": "V017",
+"name": "Girls Hostel",
+"block": "Block 1 & 2",
+"floor": "Multiple Floors",
+"description": "Residential accommodation for female students, located near the Guest House and main campus facilities.",
+"category": "Residential",
+"keywords": ["residence", "stay", "dorm", "accommodation", "girls", "block 1", "block 2"],
+"icon": "🏠"
+},
+{
+"id": "V018",
+"name": "Open Auditorium",
+"block": "Standalone Facility",
+"floor": "Outdoor",
+"description": "Large open-air venue used for college events, functions, and large-scale gatherings.",
+"category": "Cultural",
+"keywords": ["events", "functions", "stage", "gathering", "main stage"],
+"icon": "🎭"
+},
+{
+"id": "V019",
+"name": "Project Room",
+"block": "Standalone Facilities",
+"floor": "Ground Floor",
+"description": "A dedicated workspace for students to collaborate on engineering and academic projects, located **near the Main Block entrance**.",
+"category": "Academic",
+"keywords": ["project", "workstation", "collaboration", "engineering", "study", "main block"],
+"icon": "📝"
+},
+{
+"id": "V020",
+"name": "EP Lab",
+"block": "Standalone Facilities",
+"floor": "Ground Floor",
+"description": "Engineering Physics laboratory, primarily used for first-year engineering practicals, located **near the Main Block entrance**.",
+"category": "Laboratory",
+"keywords": ["engineering physics", "lab", "first year", "ep", "main block"],
+"icon": "🔬"
+},
+{
+"id": "V021",
+"name": "R&D Cell",
+"block": "Standalone Facilities",
+"floor": "Ground Floor",
+"description": "The Research and Development cell, supporting faculty and student innovation and research work, located **near the Main Block entrance**.",
+"category": "Research",
+"keywords": ["research", "development", "innovation", "grants", "funding", "main block"],
+"icon": "🧠"
+},
+{
+"id": "V022",
+"name": "Volley Ball Court",
+"block": "Sports Ground",
+"floor": "Outdoor",
+"description": "Outdoor paved court for volleyball matches and recreational student play.",
+"category": "Sports",
+"keywords": ["volleyball", "court", "game", "net"],
+"icon": "🏐"
+},
+{
+"id": "V023",
+"name": "Placement Training Cell",
+"block": "IAS Academic",
+"floor": "Ground Floor",
+"description": "The office managing campus recruitment, soft skills training, and placement preparation workshops, located **near the IAS Academy**.",
+"category": "Administration",
+"keywords": ["placement", "training", "jobs", "recruitment", "interview", "ias academy"],
+"icon": "🤝"
+}
+]
+
+
+    
